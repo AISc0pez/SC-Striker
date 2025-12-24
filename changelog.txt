@@ -1,4 +1,0 @@
-1.0.4
-- Added auto-wipe system
-- Fixed bug with VIN strike
-- Improved database performance
