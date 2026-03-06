@@ -1,7 +1,6 @@
-
 SC-Striker v1.0.6
-
 Release Date: 2026-03-06
+
 Added
 +- New config option: strikeNonPlayerOwnedCars.
 +- Supports new strike flow for player-owned and non-player-owned vehicles (config controlled).
