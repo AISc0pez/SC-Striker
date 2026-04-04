@@ -1,21 +1,49 @@
-SC-Striker v1.0.6
-Release Date: 2026-03-06
+SC-Striker v2.0.0
+Release Date: 2026-04-03
 
-Added
-+- New config option: strikeNonPlayerOwnedCars.
-+- Supports new strike flow for player-owned and non-player-owned vehicles (config controlled).
-+- Improved ak47_vehiclekeys support for local/unowned vehicle key assignment.
+Framework Support
++- Added full QBCore support (separate framework bridge, player wrapper, money/item handling).
++- Added full QBox (qbx_core) support (separate framework bridge, mirrors QBCore structure).
++- ESX support retained and improved with cleaner player data mapping.
++- Auto-detection now correctly identifies and separates QBCore, QBox, and ESX at startup.
++- Framework bridges are now split into dedicated files: frameworks/ESX, frameworks/QB, frameworks/QBOX.
+
+New Modules
++- Chopping Module: Full warehouse/chop shop addon bundled directly into sc-striker.
+    - Dynamic pricing by vehicle class (Compacts through Military).
+    - Part payouts: wheels, doors, hood, trunk.
+    - Configurable rare item drops with individual chance percentages.
+    - Progression threshold system for reward unlocks.
+    - Supports ox_target, ox_lib menus/inputs, ps-dispatch, and lb-phone.
+    - Server-side and client-side split for clean architecture.
+    - Chopping bridge (frameworks/chopping.lua) handles all three frameworks transparently.
+    - Auto-creates required database table on resource start.
++- VinSwapperJob Module: Player-driven VIN swap job sequence.
+    - Configurable allowed jobs, vehicle search radius, and target player radius.
+    - Multi-stage inspection flow (Driver Door, Engine Bay, Passenger Door).
+    - Billing system with configurable max charge and payment options (money, black_money).
++- VinSwap Shop: NPC shop for purchasing job-related items (ProPad, OBD Reader, Programmable Key).
++- Usable Items: ProPad, OBD Reader, and Programmable Key wired into framework item system.
+
+UI
++- Full UI rewrite.
++- Significantly faster load times and smoother transitions compared to v1.
++- Laptop/tablet interface.
++- Cleaner component structure.
+
+
+Config
++- New Configstriker.Chopping block to toggle the chopping addon on/off.
++- New Configstriker.VinSwapperJob block with full stage and billing configuration.
++- New Configstriker.VinSwapShop block for item shop NPC.
++- New Configstriker.usableItems block for item use behavior.
++- Configstriker.Framework now supports "auto", "esx", "qb", "qbox".
++- Configstriker.FrameworkResources lets you override core resource names per framework.
++- OwnedVehicleTable, OwnerColumn, PlateColumn, GarageColumn now fully configurable for any DB layout.
++- DefaultGarage and QBDefaultGarage split to handle ESX vs QB garage table differences.
 
 Improved
-+- VIN swap payment handling and method validation.
-+- Better compatibility for cash, bank, and black money payment paths.
-
-Database
-+- Strike table updated to: striked_cars.
-+- Auto-creates striked_cars only if missing.
-+- Detects old struck_cars table, removes it, and ensures new table exists.
-+- Autowipe now targets striked_cars.
-
-Fixes
-+- Stability fixes around strike registration and VIN swap checks.
-+- Better ownership checks in strike flow to match config behavior.
++- VIN swap payment handling extended to support QBCore and QBox money accounts.
++- Strike flow and ownership checks updated to work correctly across all three frameworks.
++- Key system compatibility list expanded (wasabi_carlock, ak47_vehiclekeys, Renewed, and more).
++- Server callbacks and usable item registration now queue correctly if the core resource starts late.
